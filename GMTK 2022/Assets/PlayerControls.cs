@@ -62,6 +62,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Aim"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""88df7b21-2902-45e4-9408-c82f2167cc54"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -123,7 +132,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""2D Vector"",
                     ""id"": ""4563631a-1d94-47f5-9f8b-87c7c2d9637c"",
-                    ""path"": ""2DVector"",
+                    ""path"": ""2DVector(mode=2)"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -295,6 +304,61 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""44294859-e470-4420-9db3-d54fa7a7ac57"",
+                    ""path"": ""2DVector(mode=2)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Aim"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""aa7e07f6-1761-4c87-9472-e390415ac3ed"",
+                    ""path"": ""<Gamepad>/rightStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controllers"",
+                    ""action"": ""Aim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""07c41a7e-de6d-4dfb-9f54-1f0f7fbb013e"",
+                    ""path"": ""<Gamepad>/rightStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controllers"",
+                    ""action"": ""Aim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""3e51fcd8-e342-471b-a726-56fb6df8acb9"",
+                    ""path"": ""<Gamepad>/rightStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controllers"",
+                    ""action"": ""Aim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""4e083746-1e46-4e1a-acb8-21415af51a0d"",
+                    ""path"": ""<Gamepad>/rightStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controllers"",
+                    ""action"": ""Aim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -329,6 +393,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_InGame_PrimaryFire = m_InGame.FindAction("PrimaryFire", throwIfNotFound: true);
         m_InGame_SecondaryFire = m_InGame.FindAction("SecondaryFire", throwIfNotFound: true);
         m_InGame_Dash = m_InGame.FindAction("Dash", throwIfNotFound: true);
+        m_InGame_Aim = m_InGame.FindAction("Aim", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -392,6 +457,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_InGame_PrimaryFire;
     private readonly InputAction m_InGame_SecondaryFire;
     private readonly InputAction m_InGame_Dash;
+    private readonly InputAction m_InGame_Aim;
     public struct InGameActions
     {
         private @PlayerControls m_Wrapper;
@@ -400,6 +466,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @PrimaryFire => m_Wrapper.m_InGame_PrimaryFire;
         public InputAction @SecondaryFire => m_Wrapper.m_InGame_SecondaryFire;
         public InputAction @Dash => m_Wrapper.m_InGame_Dash;
+        public InputAction @Aim => m_Wrapper.m_InGame_Aim;
         public InputActionMap Get() { return m_Wrapper.m_InGame; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -421,6 +488,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Dash.started -= m_Wrapper.m_InGameActionsCallbackInterface.OnDash;
                 @Dash.performed -= m_Wrapper.m_InGameActionsCallbackInterface.OnDash;
                 @Dash.canceled -= m_Wrapper.m_InGameActionsCallbackInterface.OnDash;
+                @Aim.started -= m_Wrapper.m_InGameActionsCallbackInterface.OnAim;
+                @Aim.performed -= m_Wrapper.m_InGameActionsCallbackInterface.OnAim;
+                @Aim.canceled -= m_Wrapper.m_InGameActionsCallbackInterface.OnAim;
             }
             m_Wrapper.m_InGameActionsCallbackInterface = instance;
             if (instance != null)
@@ -437,6 +507,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Dash.started += instance.OnDash;
                 @Dash.performed += instance.OnDash;
                 @Dash.canceled += instance.OnDash;
+                @Aim.started += instance.OnAim;
+                @Aim.performed += instance.OnAim;
+                @Aim.canceled += instance.OnAim;
             }
         }
     }
@@ -456,5 +529,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnPrimaryFire(InputAction.CallbackContext context);
         void OnSecondaryFire(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
+        void OnAim(InputAction.CallbackContext context);
     }
 }

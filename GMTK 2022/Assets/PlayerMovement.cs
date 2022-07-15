@@ -5,11 +5,11 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private PlayerControls system;
-    private Vector2 moveControls;
+    private Vector2 moveControls, aimControls;
     private float currentDashCoolDown = 0f, currentDash = 0f;
 
     [SerializeField]
-    private float baseMovementSpeed, dashCoolDown, dashSpeed, dashLength;
+    private float baseMovementSpeed, dashCoolDown, dashSpeed, dashLength, controller;
 
     private void OnEnable()
     {
@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
         system = new PlayerControls();
         system.InGame.Move.performed += ctx => moveControls = ctx.ReadValue<Vector2>();
         system.InGame.Move.canceled += ctx => moveControls = Vector2.zero;
+        system.InGame.Aim.performed += ctx => aimControls = ctx.ReadValue<Vector2>();
         system.InGame.PrimaryFire.performed += ctx => PrimaryFire();
         system.InGame.SecondaryFire.performed += ctx => SecondaryFire();
         system.InGame.Dash.performed += ctx => Dash();
@@ -53,6 +54,8 @@ public class PlayerMovement : MonoBehaviour
             currentDash -= Time.deltaTime;
             currentDash = Mathf.Max(currentDash, 0f);
         }
+
+        transform.LookAt(aimControls + (Vector2) transform.position);
 
         MovePlayer();
     }
