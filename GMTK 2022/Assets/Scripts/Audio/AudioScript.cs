@@ -75,7 +75,40 @@ public class AudioScript : MonoBehaviour
                 break;
         }
     }
-    
+
+    // A "simple" way to handle Unity's one-shot system
+    public void PlayOneShot(AudioSource source, AudioClip clip, float volume)
+    {
+        source.volume = volume;
+        source.PlayOneShot(clip);
+    }
+
+    // A way to handle audio intros into loops
+    public void PlayTrackAfterIntro(AudioSource source, AudioClip intro, AudioClip clip, float volume, bool shouldRepeat = true)
+    {
+        source.volume = volume;
+        source.PlayOneShot(intro);
+        StartCoroutine(WaitForIntro(source, clip, shouldRepeat));
+    }
+
+    private static IEnumerator WaitForIntro(AudioSource source, AudioClip clip, bool shouldRepeat)
+    {
+        while (source.isPlaying)
+        {
+            yield return null;
+        }
+        if(shouldRepeat)
+        {
+            source.loop = true;
+        }
+        else
+        {
+            source.loop = false;
+        }
+        source.clip = clip;
+        source.Play();
+    }
+
     private static IEnumerator StartFade(AudioSource sourceToFade, float timeToFade, float endVol)
     {
         float currentTime = 0;
