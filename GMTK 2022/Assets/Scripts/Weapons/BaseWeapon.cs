@@ -9,5 +9,6 @@ public abstract class BaseWeapon : MonoBehaviour
     public float attackRange;
     public float knockbackAmount;
 
-    public abstract void UseAbility();
+    public abstract void UsePrimary();
+    public abstract void UseSecondary();
 }

@@ -16,8 +16,13 @@ public class MeleeWeapon : BaseWeapon
         
     }
 
-    public override void UseAbility()
+    public override void UsePrimary()
     {
-        throw new System.NotImplementedException();
+        
+    }
+
+    public override void UseSecondary()
+    {
+
     }
 }
