@@ -6,6 +6,16 @@ public class PlayerMovement : MonoBehaviour
 {
     private PlayerControls system;
 
+    private void OnEnable()
+    {
+        system.Enable();
+    }
+
+    private void OnDisable()
+    {
+        system.Disable();
+    }
+
     private void Awake()
     {
         system = new PlayerControls();
