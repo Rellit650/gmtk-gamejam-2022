@@ -454,11 +454,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dashBar: {fileID: 1375107613}
+  healthBar: {fileID: 74191092}
   baseMovementSpeed: 7.5
   dashCoolDown: 0.5
   dashSpeed: 25
   dashLength: 0.25
   controller: 0
+  baseHealth: 1000
 --- !u!54 &90246124
 Rigidbody:
   m_ObjectHideFlags: 0

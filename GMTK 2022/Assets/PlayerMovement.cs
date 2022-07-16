@@ -7,14 +7,15 @@ public class PlayerMovement : MonoBehaviour
     private PlayerControls system;
     private Vector2 moveControls, aimControls;
     private float currentDashCoolDown = 0f, currentDash = 0f;
+    private float health;
     private BaseWeapon currentWeapon;
     private List<BaseWeapon> activeWeapons;
     Vector3 mousePos;
 
-    public HUDBar dashBar;
+    public HUDBar dashBar, healthBar;
 
     [SerializeField]
-    private float baseMovementSpeed, dashCoolDown, dashSpeed, dashLength, controller;
+    private float baseMovementSpeed, dashCoolDown, dashSpeed, dashLength, controller, baseHealth;
 
     private void OnEnable()
     {
@@ -41,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        SetHealth(baseHealth);
     }
 
     // Update is called once per frame
@@ -116,5 +117,11 @@ public class PlayerMovement : MonoBehaviour
     {
         Debug.Log("SWITCHING WEAPON TO RANDOM WEAPON");
         currentWeapon = activeWeapons[Mathf.CeilToInt(Random.Range(0, activeWeapons.Count) - 1)];
+    }
+
+    void SetHealth(float value)
+    {
+        health = value;
+        healthBar.SetPercent(health / baseHealth);
     }
 }

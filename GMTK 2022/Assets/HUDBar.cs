@@ -11,7 +11,7 @@ public class HUDBar : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        bar.value = 1f;
+        bar.value = bar.maxValue;
     }
 
     public void SetPercent(float percentage)
