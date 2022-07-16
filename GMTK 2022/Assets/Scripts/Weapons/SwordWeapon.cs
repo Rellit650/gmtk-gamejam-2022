@@ -7,7 +7,12 @@ public class SwordWeapon : BaseWeapon
     public float minRange;
     public float maxRange;
     private float attackCDTimer = 0f;
+    private float attackAnimationTimer = 0f;
     private bool onCD = false;
+    public GameObject SwordSwingVFX;
+    public Transform startPoint;
+    public Transform midPoint;
+    public Transform endPoint;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,14 +40,34 @@ public class SwordWeapon : BaseWeapon
                 UsePrimary();
             }
         }
+
+        if (onCD) 
+        {
+            
+            //Add to timer
+            attackAnimationTimer += Time.deltaTime;
+            //Debug.LogWarning("First: " + Time.deltaTime);
+            //Calculate our lerp factor
+            float interFactor = attackAnimationTimer / 0.15f;   
+            
+            //apply 3 point lerp
+            SwordSwingVFX.transform.position = Vector3.Lerp(Vector3.Lerp(startPoint.position, midPoint.position, interFactor), Vector3.Lerp(midPoint.position, endPoint.position, interFactor), interFactor);
+
+            //Debug.LogWarning("Later: " + Time.deltaTime);
+            if (attackAnimationTimer - Time.deltaTime == 0f)
+            {
+                SwordSwingVFX.GetComponentInChildren<TrailRenderer>().Clear();
+            }
+        }  
     }
 
     public override void UsePrimary()
     {
         if (!onCD) 
-        {
+        {       
             onCD = true;
             attackCDTimer = 0f;
+            attackAnimationTimer = 0f;
             StartCoroutine(PrimaryAttack());
         } 
     }
@@ -56,8 +81,10 @@ public class SwordWeapon : BaseWeapon
     {
         Debug.Log("Attacking");
         WeaponColliderObject.SetActive(true);
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.15f);
         //WeaponColliderObject.GetComponent<MeleeHitboxScript>().ResolveAllCollisions();
         WeaponColliderObject.SetActive(false);
+        yield return new WaitForSeconds(0.2f);
+        SwordSwingVFX.GetComponentInChildren<TrailRenderer>().Clear();
     }
 }
