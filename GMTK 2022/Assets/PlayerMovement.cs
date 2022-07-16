@@ -90,12 +90,12 @@ public class PlayerMovement : MonoBehaviour
 
     void PrimaryFire()
     {
-
+        currentWeapon.UsePrimary();
     }
 
     void SecondaryFire()
     {
-
+        currentWeapon.UseSecondary();
     }
 
     void Dash()
