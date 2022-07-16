@@ -7,10 +7,15 @@ public class TaskEnemyInFOV : Node
 {
     private Transform _transform;
     //used to check only in enemy layer and nothing else
-    private static int _enemyLayerMask = 1 << 6;
+    private static int _enemyLayerMask = 1 << 7;
+    private float _fovRange;
 
     //Constructor
-    public TaskEnemyInFOV(Transform trans){_transform = trans;}
+    public TaskEnemyInFOV(Transform trans,float fovRange)
+    {
+        _transform = trans;
+        _fovRange = fovRange;
+    }
     public override NodeState Evaluate()
     {
         object t = GetData("target");
@@ -18,19 +23,21 @@ public class TaskEnemyInFOV : Node
         {
             //Collision check within a sphere
             Collider[] cols = Physics.OverlapSphere(
-                _transform.position, BackForthBT.fovRange, _enemyLayerMask);
+                _transform.position, _fovRange, _enemyLayerMask);
 
-            if(cols.Length> 0)
+            if(cols.Length > 0)
             {
-                Debug.Log("Collision: " + cols[0].transform.name);
-            
                 parent.parent.SetData("target", cols[0].transform);
-                Debug.Log(((Transform)parent.parent.GetData("target")).name);
-                state = NodeState.SUCCESS;
+                state = NodeState.SUCCESS;              
                 return state;
             }
+            state = NodeState.FAILURE;
+            return state;
         }
-        state = NodeState.FAILURE;
+
+        //clear target, this is so if player gets outside view it'll reset
+        parent.parent.ClearData("target");
+        state = NodeState.RUNNING;
         return state;
     }
 }

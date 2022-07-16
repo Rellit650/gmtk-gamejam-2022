@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using BehaviorTree;
 
-public class BackForthBT : BT
+public class SeekerBT : BT
 {
-    public UnityEngine.Transform[] waypoints;
-
     public float speed = 4f;
     public float fovRange = 10f;
+    public float attRange = 10f;
 
     protected override Node SetupTree()
     {
@@ -16,12 +15,18 @@ public class BackForthBT : BT
         {
             new Sequence(new List<Node>
             {
+                new TaskEnemyInAttackRange(transform,attRange),
+                new TaskAttack(transform),
+            }),
+            new Sequence(new List<Node>
+            {
                 new TaskEnemyInFOV(transform,fovRange),
                 new TaskMoveToTarget(transform,speed),
             }),
-            new TaskPatrol(transform,waypoints,speed),
         });
 
         return root;
     }
+
+
 }
