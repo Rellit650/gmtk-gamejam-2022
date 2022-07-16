@@ -4,11 +4,14 @@ using UnityEngine;
 
 public abstract class BaseEnemy : MonoBehaviour
 {
-    public float MaxHealth;
-    public float CurrentHealth;
-    public float AttackDamage;
-    public float AttackSpeed;
-    public float Defense;
+
+    [SerializeField] protected float maxHealth;
+    [SerializeField] protected float currentHealth;
+    [SerializeField] protected float attackDamage;
+    [SerializeField] protected float attackSpeed;
+    [SerializeField] protected float defense;
+    [SerializeField] protected GameObject DamageNumberPrefab;
+    protected bool iFramesActive;
 
     public abstract void TakeDamage(float damage,Vector2 knockback);
 
