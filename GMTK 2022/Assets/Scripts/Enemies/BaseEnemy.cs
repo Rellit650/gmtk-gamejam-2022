@@ -18,4 +18,8 @@ public abstract class BaseEnemy : MonoBehaviour
     public abstract void Attack();
 
     public abstract void Move();
+
+    public float GetHealth() { return currentHealth; }
+    public float GetAttacKSpd() { return attackSpeed; }
+    public float GetAttackDmg() { return attackDamage; }
 }

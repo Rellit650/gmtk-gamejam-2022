@@ -16,7 +16,9 @@ public class SeekerBT : BT
             new Sequence(new List<Node>
             {
                 new TaskEnemyInAttackRange(transform,attRange),
-                new TaskAttack(transform),
+                new TaskAttack(transform,
+                GetComponent<TestEnemy>().GetAttacKSpd(),
+                GetComponent<TestEnemy>().GetAttackDmg()),
             }),
             new Sequence(new List<Node>
             {

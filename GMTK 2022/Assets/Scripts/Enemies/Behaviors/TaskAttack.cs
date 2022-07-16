@@ -7,12 +7,19 @@ public class TaskAttack : Node
 {
     private Transform _transform;
     private Transform _prevTarget;
-    private BaseEnemy _enemy;
+    private TestEnemy _enemy;
 
+    private float _attackDamage = 1f;
     private float _attackTime = 1f;
     private float _attackCounter = 0f;
 
     public TaskAttack(Transform trans) { _transform = trans; }
+    public TaskAttack(Transform trans, float attackTime,float attackDamage) 
+    { 
+        _transform = trans;
+        _attackTime = attackTime;
+        _attackDamage = attackDamage;
+    }
     public override NodeState Evaluate()
     {
         Transform target = (Transform)GetData("target");
@@ -26,12 +33,10 @@ public class TaskAttack : Node
         _attackCounter += Time.deltaTime;
         if(_attackCounter >= _attackTime)
         {
-            _enemy.TakeDamage(10f, Vector2.zero);
-
-            if (_enemy.CurrentHealth <= 0f)
+            _enemy.TakeDamage(_attackDamage, Vector2.zero);
+            _attackCounter = 0f;
+            if (_enemy.GetHealth() <= 0f)
                 ClearData("target");
-            else
-                _attackCounter = 0f;
         }
             
 
