@@ -7,11 +7,15 @@ public class PlayerMovement : MonoBehaviour
     private PlayerControls system;
     private Vector2 moveControls, aimControls;
     private float currentDashCoolDown = 0f, currentDash = 0f;
+    private float health;
     private BaseWeapon currentWeapon;
     private List<BaseWeapon> activeWeapons;
+    Vector3 mousePos;
+
+    public HUDBar dashBar, healthBar;
 
     [SerializeField]
-    private float baseMovementSpeed, dashCoolDown, dashSpeed, dashLength, controller;
+    private float baseMovementSpeed, dashCoolDown, dashSpeed, dashLength, controller, baseHealth;
 
     private void OnEnable()
     {
@@ -38,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        SetHealth(baseHealth);
     }
 
     // Update is called once per frame
@@ -49,6 +53,8 @@ public class PlayerMovement : MonoBehaviour
         {
             currentDashCoolDown -= Time.deltaTime;
             currentDashCoolDown = Mathf.Max(currentDashCoolDown, 0f);
+            float dashDisplayPercent = 1f - currentDashCoolDown / (dashCoolDown + dashLength);
+            dashBar.SetPercent(dashDisplayPercent);
         }
 
         // Update the dash timer
@@ -58,7 +64,24 @@ public class PlayerMovement : MonoBehaviour
             currentDash = Mathf.Max(currentDash, 0f);
         }
 
-        transform.LookAt(aimControls + (Vector2) transform.position);
+        if (aimControls.sqrMagnitude > 0.0f)
+        {
+            Cursor.visible = false;
+            transform.LookAt(aimControls + (Vector2)transform.position);
+        }
+        else
+        {
+            if (Input.GetAxis("Mouse X") != 0)
+            {
+                Cursor.visible = true;
+            }
+            if(Cursor.visible)
+            {
+                mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                transform.LookAt(new Vector3(mousePos.x, mousePos.y, transform.position.z));
+            }
+        }
+        
 
         MovePlayer();
     }
@@ -72,12 +95,12 @@ public class PlayerMovement : MonoBehaviour
 
     void PrimaryFire()
     {
-
+        currentWeapon.UsePrimary();
     }
 
     void SecondaryFire()
     {
-
+        currentWeapon.UseSecondary();
     }
 
     void Dash()
@@ -86,12 +109,19 @@ public class PlayerMovement : MonoBehaviour
         {
             currentDash = dashLength;
             currentDashCoolDown = dashCoolDown + dashLength;
+            dashBar.SetPercent(0f);
         }
     }
 
     void SwitchWeapon()
     {
         Debug.Log("SWITCHING WEAPON TO RANDOM WEAPON");
-        currentWeapon = activeWeapons[Mathf.CeilToInt(Random.Range(0, activeWeapons.Count) + 1)];
+        currentWeapon = activeWeapons[Mathf.CeilToInt(Random.Range(0, activeWeapons.Count) - 1)];
+    }
+
+    void SetHealth(float value)
+    {
+        health = value;
+        healthBar.SetPercent(health / baseHealth);
     }
 }
