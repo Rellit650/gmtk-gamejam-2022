@@ -94,12 +94,12 @@ public class PlayerMovement : MonoBehaviour
 
     void PrimaryFire()
     {
-
+        currentWeapon.UsePrimary();
     }
 
     void SecondaryFire()
     {
-
+        currentWeapon.UseSecondary();
     }
 
     void Dash()
@@ -115,6 +115,6 @@ public class PlayerMovement : MonoBehaviour
     void SwitchWeapon()
     {
         Debug.Log("SWITCHING WEAPON TO RANDOM WEAPON");
-        currentWeapon = activeWeapons[Mathf.CeilToInt(Random.Range(0, activeWeapons.Count) + 1)];
+        currentWeapon = activeWeapons[Mathf.CeilToInt(Random.Range(0, activeWeapons.Count) - 1)];
     }
 }
