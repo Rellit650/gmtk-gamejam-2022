@@ -15,7 +15,7 @@ public class MapGen : MonoBehaviour
     }
     private Room GenerateDungeon()
     {
-        int gridSize = 3 * numberOfRooms;
+        int gridSize = numberOfRooms;
         rooms = new Room[gridSize, gridSize];
         Vector2Int initialRoomCoordinate = new Vector2Int((gridSize / 2) - 1, (gridSize / 2) - 1);
         Queue<Room> roomsToCreate = new Queue<Room>();
@@ -24,7 +24,7 @@ public class MapGen : MonoBehaviour
         while (roomsToCreate.Count > 0 && createdRooms.Count < numberOfRooms)
         {
             Room currentRoom = roomsToCreate.Dequeue();
-            this.rooms[currentRoom.roomCoordinate.x, currentRoom.roomCoordinate.y] = currentRoom;
+            rooms[currentRoom.roomCoordinate.x, currentRoom.roomCoordinate.y] = currentRoom;
             createdRooms.Add(currentRoom);
             AddNeighbors(currentRoom, roomsToCreate);
         }
