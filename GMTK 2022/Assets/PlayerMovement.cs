@@ -7,6 +7,8 @@ public class PlayerMovement : MonoBehaviour
     private PlayerControls system;
     private Vector2 moveControls, aimControls;
     private float currentDashCoolDown = 0f, currentDash = 0f;
+    private BaseWeapon currentWeapon;
+    private List<BaseWeapon> activeWeapons;
 
     [SerializeField]
     private float baseMovementSpeed, dashCoolDown, dashSpeed, dashLength, controller;
@@ -30,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
         system.InGame.PrimaryFire.performed += ctx => PrimaryFire();
         system.InGame.SecondaryFire.performed += ctx => SecondaryFire();
         system.InGame.Dash.performed += ctx => Dash();
+        system.InGame.SwitchWeapon.performed += ctx => SwitchWeapon();
     }
 
     // Start is called before the first frame update
@@ -84,5 +87,11 @@ public class PlayerMovement : MonoBehaviour
             currentDash = dashLength;
             currentDashCoolDown = dashCoolDown + dashLength;
         }
+    }
+
+    void SwitchWeapon()
+    {
+        Debug.Log("SWITCHING WEAPON TO RANDOM WEAPON");
+        currentWeapon = activeWeapons[Mathf.CeilToInt(Random.Range(0, activeWeapons.Count) + 1)];
     }
 }

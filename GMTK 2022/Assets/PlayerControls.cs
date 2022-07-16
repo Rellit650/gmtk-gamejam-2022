@@ -71,6 +71,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SwitchWeapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""cf8a620a-1dc4-42d0-ace5-700c64dd4bef"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -359,6 +368,28 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""Aim"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7712b4e2-ddd1-49cc-a22d-5fb2b92121cc"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1334953f-3a45-410c-9444-02c79346522e"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -394,6 +425,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_InGame_SecondaryFire = m_InGame.FindAction("SecondaryFire", throwIfNotFound: true);
         m_InGame_Dash = m_InGame.FindAction("Dash", throwIfNotFound: true);
         m_InGame_Aim = m_InGame.FindAction("Aim", throwIfNotFound: true);
+        m_InGame_SwitchWeapon = m_InGame.FindAction("SwitchWeapon", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -458,6 +490,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_InGame_SecondaryFire;
     private readonly InputAction m_InGame_Dash;
     private readonly InputAction m_InGame_Aim;
+    private readonly InputAction m_InGame_SwitchWeapon;
     public struct InGameActions
     {
         private @PlayerControls m_Wrapper;
@@ -467,6 +500,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @SecondaryFire => m_Wrapper.m_InGame_SecondaryFire;
         public InputAction @Dash => m_Wrapper.m_InGame_Dash;
         public InputAction @Aim => m_Wrapper.m_InGame_Aim;
+        public InputAction @SwitchWeapon => m_Wrapper.m_InGame_SwitchWeapon;
         public InputActionMap Get() { return m_Wrapper.m_InGame; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -491,6 +525,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Aim.started -= m_Wrapper.m_InGameActionsCallbackInterface.OnAim;
                 @Aim.performed -= m_Wrapper.m_InGameActionsCallbackInterface.OnAim;
                 @Aim.canceled -= m_Wrapper.m_InGameActionsCallbackInterface.OnAim;
+                @SwitchWeapon.started -= m_Wrapper.m_InGameActionsCallbackInterface.OnSwitchWeapon;
+                @SwitchWeapon.performed -= m_Wrapper.m_InGameActionsCallbackInterface.OnSwitchWeapon;
+                @SwitchWeapon.canceled -= m_Wrapper.m_InGameActionsCallbackInterface.OnSwitchWeapon;
             }
             m_Wrapper.m_InGameActionsCallbackInterface = instance;
             if (instance != null)
@@ -510,6 +547,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Aim.started += instance.OnAim;
                 @Aim.performed += instance.OnAim;
                 @Aim.canceled += instance.OnAim;
+                @SwitchWeapon.started += instance.OnSwitchWeapon;
+                @SwitchWeapon.performed += instance.OnSwitchWeapon;
+                @SwitchWeapon.canceled += instance.OnSwitchWeapon;
             }
         }
     }
@@ -530,5 +570,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnSecondaryFire(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
+        void OnSwitchWeapon(InputAction.CallbackContext context);
     }
 }
