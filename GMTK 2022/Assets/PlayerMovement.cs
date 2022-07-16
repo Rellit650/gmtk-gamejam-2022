@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     private float currentDashCoolDown = 0f, currentDash = 0f;
     private BaseWeapon currentWeapon;
     private List<BaseWeapon> activeWeapons;
+    Vector3 mousePos;
 
     [SerializeField]
     private float baseMovementSpeed, dashCoolDown, dashSpeed, dashLength, controller;
@@ -58,7 +59,24 @@ public class PlayerMovement : MonoBehaviour
             currentDash = Mathf.Max(currentDash, 0f);
         }
 
-        transform.LookAt(aimControls + (Vector2) transform.position);
+        if (aimControls.sqrMagnitude > 0.0f)
+        {
+            Cursor.visible = false;
+            transform.LookAt(aimControls + (Vector2)transform.position);
+        }
+        else
+        {
+            if (Input.GetAxis("Mouse X") != 0)
+            {
+                Cursor.visible = true;
+            }
+            if(Cursor.visible)
+            {
+                mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                transform.LookAt(new Vector3(mousePos.x, mousePos.y, transform.position.z));
+            }
+        }
+        
 
         MovePlayer();
     }
