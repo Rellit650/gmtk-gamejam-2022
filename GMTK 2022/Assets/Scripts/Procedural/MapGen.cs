@@ -13,14 +13,18 @@ public class MapGen : MonoBehaviour
         GenerateDungeon();
         PrintGrid();
     }
+    // Generate the floor
     private Room GenerateDungeon()
     {
+        // Setup of all necessary containers
         int gridSize = numberOfRooms;
         rooms = new Room[gridSize, gridSize];
         Vector2Int initialRoomCoordinate = new Vector2Int((gridSize / 2) - 1, (gridSize / 2) - 1);
         Queue<Room> roomsToCreate = new Queue<Room>();
         roomsToCreate.Enqueue(new Room(initialRoomCoordinate.x, initialRoomCoordinate.y));
         List<Room> createdRooms = new List<Room>();
+
+        // Generating necessary rooms + assigning neighbors
         while (roomsToCreate.Count > 0 && createdRooms.Count < numberOfRooms)
         {
             Room currentRoom = roomsToCreate.Dequeue();
@@ -29,6 +33,7 @@ public class MapGen : MonoBehaviour
             AddNeighbors(currentRoom, roomsToCreate);
         }
 
+        // Connecting neighbors
         foreach (Room room in createdRooms)
         {
             List<Vector2Int> neighborCoordinates = room.NeighborCoordinates();
@@ -43,6 +48,8 @@ public class MapGen : MonoBehaviour
         }
         return rooms[initialRoomCoordinate.x, initialRoomCoordinate.y];
     }
+
+    // Assigning neighbors
     private void AddNeighbors(Room currentRoom, Queue<Room> roomsToCreate)
     {
         List<Vector2Int> neighborCoordinates = currentRoom.NeighborCoordinates();
@@ -78,6 +85,7 @@ public class MapGen : MonoBehaviour
         }
     }
 
+    // Debug to print grid, can be used later for placement/generation
     private void PrintGrid()
     {
         for (int rowIndex = 0; rowIndex < rooms.GetLength(1); rowIndex++)
