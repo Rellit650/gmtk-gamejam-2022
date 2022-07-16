@@ -11,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
     private List<BaseWeapon> activeWeapons;
     Vector3 mousePos;
 
+    public HUDBar dashBar;
+
     [SerializeField]
     private float baseMovementSpeed, dashCoolDown, dashSpeed, dashLength, controller;
 
@@ -50,6 +52,8 @@ public class PlayerMovement : MonoBehaviour
         {
             currentDashCoolDown -= Time.deltaTime;
             currentDashCoolDown = Mathf.Max(currentDashCoolDown, 0f);
+            float dashDisplayPercent = 1f - currentDashCoolDown / (dashCoolDown + dashLength);
+            dashBar.SetPercent(dashDisplayPercent);
         }
 
         // Update the dash timer
@@ -104,6 +108,7 @@ public class PlayerMovement : MonoBehaviour
         {
             currentDash = dashLength;
             currentDashCoolDown = dashCoolDown + dashLength;
+            dashBar.SetPercent(0f);
         }
     }
 
