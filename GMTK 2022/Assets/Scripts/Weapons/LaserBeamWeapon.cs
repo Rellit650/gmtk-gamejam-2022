@@ -8,9 +8,12 @@ public class LaserBeamWeapon : BaseWeapon
     private bool firing = true;
     private BoxCollider2D beamCollider;
     private GameObject beamVFX;
+    private GameObject playerRef;
     // Start is called before the first frame update
     void Start()
     {
+        type = WeaponType.LaserBeam;
+        playerRef = FindObjectOfType<PlayerMovement>().gameObject;
         beamCollider = GetComponentInChildren<BoxCollider2D>();
         beamVFX = GetComponentInChildren<LineRenderer>().gameObject;
     }
@@ -20,8 +23,11 @@ public class LaserBeamWeapon : BaseWeapon
     {
         if (firing) 
         {
-            UsePrimary();
-        }    
+            UsePrimary(0f,0f);
+        }
+
+        transform.position = playerRef.transform.position;
+        transform.rotation = Quaternion.Euler(0f, 0f, playerRef.transform.rotation.eulerAngles.z);
     }
 
     public void InitialFireCommand() 
@@ -36,12 +42,22 @@ public class LaserBeamWeapon : BaseWeapon
         firing = false;
     }
 
-    public override void UsePrimary()
+    public override void UsePrimary(float damageBuff, float ASBuff)
     {
         if (!firingInternal) 
         {
             StartCoroutine(FireBeam());
         }
+    }
+
+    public override void StartPrimary()
+    {
+        InitialFireCommand();
+    }
+
+    public override void EndPrimary()
+    {
+        ReleaseFireCommand();
     }
 
     public override void UseSecondary()

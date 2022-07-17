@@ -11,27 +11,29 @@ public class CircleShotWeapon : BaseWeapon
     // Start is called before the first frame update
     void Start()
     {
-        UsePrimary();
+        type = WeaponType.Circle;
+        UsePrimary(0f,0f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (attackCDTimer <= attackSpeed)
+        if (attackCDTimer <= (attackSpeed - attackSpeedFromPlayer))
         {
             attackCDTimer += Time.deltaTime;
         }
 
-        if (attackCDTimer > attackSpeed)
+        if (attackCDTimer > (attackSpeed - attackSpeedFromPlayer))
         {
             onCD = false;
             //Will need to remove this later 
-            UsePrimary();
+            UsePrimary(0f,0f);
         }
     }
 
-    public override void UsePrimary()
+    public override void UsePrimary(float damageBuff, float ASBuff)
     {
+        attackSpeedFromPlayer = ASBuff;
         if (!onCD)
         {
             onCD = true;
@@ -59,6 +61,15 @@ public class CircleShotWeapon : BaseWeapon
             }
             //attackAnimationTimer = 0f;
         }
+    }
+    public override void StartPrimary()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void EndPrimary()
+    {
+        throw new System.NotImplementedException();
     }
 
     public override void UseSecondary()
