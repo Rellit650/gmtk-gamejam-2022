@@ -21,6 +21,8 @@ public class SentryTurrentBT : BT
         {
             GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
             bullet.SetActive(false);
+            bullet.GetComponent<EnemyBullet>().SetSpeed(bulletSpd);
+            bullet.GetComponent<EnemyBullet>().SetDmg(GetComponent<TestEnemy>().GetAttackDmg());
             bulletPool.Add(bullet);
 
         }
@@ -45,14 +47,14 @@ public class SentryTurrentBT : BT
 
     public GameObject GetBullet()
     {
-        foreach(GameObject bullet in bulletPool)
+        foreach (GameObject bullet in bulletPool)
         {
             if(bullet.activeSelf == false)
             {
-                Debug.Log("BULLET RETURN");
                 return bullet;
             }
         }
+        //make new bullet if we need to
         GameObject newBullet = Instantiate(bulletPrefab, transform.position,
             Quaternion.identity);
         newBullet.SetActive(false);

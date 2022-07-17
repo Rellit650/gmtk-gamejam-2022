@@ -30,17 +30,18 @@ public class TaskShoot : Node
         }
 
         _attackCounter += Time.deltaTime;
+
         if (_attackCounter >= _attackTime)
         {
             GameObject bullet = _sentryBT.GetBullet();
             if(bullet != null)
             {
+             
                 bullet.transform.position = _sentryBT.barrelPos.position;
-                bullet.transform.GetComponent<Rigidbody>().AddForce(
-                target.position - bullet.transform.position * _sentryBT.bulletSpd);
-
+                bullet.GetComponent<EnemyBullet>().SetDirection(target.position - bullet.transform.position);
+                bullet.SetActive(true);
             }
-            
+
             _attackCounter = 0f;
             if (_enemy.GetHealth() <= 0f)
                 ClearData("target");

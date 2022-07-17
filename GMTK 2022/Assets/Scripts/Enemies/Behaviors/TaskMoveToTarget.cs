@@ -25,7 +25,27 @@ public class TaskMoveToTarget : Node
                     _transform.position,
                     target.position,
                     _speed * Time.deltaTime);
-                _transform.LookAt(target.position);
+                Vector3 lookDir3D = target.transform.position - _transform.position;
+
+                // normalize the vector: this makes the x and y components numerically
+                // equal to the sine and cosine of the angle:
+                lookDir3D.z = 0f;
+                lookDir3D.Normalize();
+                // get the basic angle:
+                float ang = Mathf.Asin(lookDir3D.y) * Mathf.Rad2Deg;
+                // fix the angle for 2nd and 3rd quadrants:
+                if (lookDir3D.x < 0)
+                {
+                    ang = 180 - ang;
+                }
+                else // fix the angle for 4th quadrant:
+                if (lookDir3D.y < 0)
+                {
+                    ang = 360 + ang;
+                }
+
+                _transform.rotation = Quaternion.Euler(0f, 0f, ang);
+
             }
             state = NodeState.RUNNING;
             return state;
