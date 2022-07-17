@@ -270,9 +270,16 @@ public class PlayerMovement : MonoBehaviour
         health = value;
         healthBar.SetPercent(health / baseHealth);
     }
+    public void TakeDamage(float value)
+    {
+        health -= value;
+        healthBar.SetPercent(health / baseHealth);
+    }
 
     public void AddWeaponToPool(BaseWeapon newWeapon) 
     {
         activeWeapons.Add(newWeapon);
     }
+
+    public float GetHealth() { return health; }
 }

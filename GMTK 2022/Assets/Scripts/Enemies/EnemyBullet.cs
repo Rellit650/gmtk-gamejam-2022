@@ -39,7 +39,7 @@ public class EnemyBullet : MonoBehaviour
     {
         if (collision.collider.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<TestEnemy>().TakeDamage(attackDmg, Vector2.zero);
+            collision.gameObject.GetComponent<PlayerMovement>().TakeDamage(attackDmg);
             gameObject.SetActive(false);
         }
     }

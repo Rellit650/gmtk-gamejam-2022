@@ -7,7 +7,7 @@ public class TaskAttack : Node
 {
     private Transform _transform;
     private Transform _prevTarget;
-    private TestEnemy _enemy;
+    private PlayerMovement _enemy;
 
     private float _attackDamage = 1f;
     private float _attackTime = 1f;
@@ -26,14 +26,14 @@ public class TaskAttack : Node
 
        if(target != _prevTarget)
         {
-            _enemy = target.GetComponent<TestEnemy>();
+            _enemy = target.GetComponent<PlayerMovement>();
             _prevTarget = target;
         }
 
         _attackCounter += Time.deltaTime;
         if(_attackCounter >= _attackTime)
         {
-            _enemy.TakeDamage(_attackDamage, Vector2.zero);
+            _enemy.TakeDamage(_attackDamage);
             _attackCounter = 0f;
             if (_enemy.GetHealth() <= 0f)
                 ClearData("target");
