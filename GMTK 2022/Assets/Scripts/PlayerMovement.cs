@@ -27,6 +27,10 @@ public class PlayerMovement : MonoBehaviour
 
     public TextMeshProUGUI weaponText;
     public Image radialCooldown;
+    private AudioScript audioManager;
+    [SerializeField] private AudioClip swapClip;
+    [SerializeField] private AudioSource swapSource;
+    [SerializeField] private float swapVolume;
     public HUDBar dashBar, healthBar;
 
     [SerializeField]
@@ -53,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
         system.InGame.SecondaryFire.performed += ctx => SecondaryFire();
         system.InGame.Dash.performed += ctx => Dash();
         system.InGame.SwitchWeapon.performed += ctx => SwitchWeapon();
+        audioManager = FindObjectOfType<AudioScript>();
     }
 
     // Start is called before the first frame update
@@ -112,9 +117,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         lookDir3D -= transform.position;
-        //float currentTurnTarget = Mathf.Atan2(lookDir3D.y, lookDir3D.x) * -Mathf.Rad2Deg;
-        //transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, currentTurnTarget), Time.deltaTime * animationLerpSpeed);
-        //transform.rotation = Quaternion.LookRotation(lookDir3D, Vector3.forward);
+
         // normalize the vector: this makes the x and y components numerically
         // equal to the sine and cosine of the angle:
         lookDir3D.z = 0f;
@@ -225,6 +228,8 @@ public class PlayerMovement : MonoBehaviour
             weaponIndex = newWeapon;
             SetWeaponText();
             radialCooldown.color = Color.red;
+
+            audioManager.PlayOneShot(swapSource, swapClip, swapVolume);
         }     
     }
 

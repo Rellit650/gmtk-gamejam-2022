@@ -30,6 +30,7 @@ public class TestEnemy : BaseEnemy
             newPos.z -= 7f;
             temp.transform.position = newPos;
             transform.position += new Vector3(knockback.x, knockback.y);
+            PlayDamageAudio();
             StartCoroutine(IFrames());
         }
         if (currentHealth <= 0f) 
