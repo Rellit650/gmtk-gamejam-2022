@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerControls system;
     private Vector2 moveControls, aimControls;
     private float currentDashCoolDown = 0f, currentDash = 0f;
+    [SerializeField]
     private float health;
     private BaseWeapon currentWeapon;
     private List<BaseWeapon> activeWeapons;
@@ -272,8 +273,13 @@ public class PlayerMovement : MonoBehaviour
     }
     public void TakeDamage(float value)
     {
-        health -= value;
+        Debug.Log("HURT>");
+        health = health - value;
         healthBar.SetPercent(health / baseHealth);
+        if(health <= 0)
+        {
+            GameObject.FindObjectOfType<LevelManagement>().LoadScene("Lost");
+        }
     }
 
     public void AddWeaponToPool(BaseWeapon newWeapon) 

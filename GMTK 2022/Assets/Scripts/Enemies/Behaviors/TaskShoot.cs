@@ -6,7 +6,7 @@ using BehaviorTree;
 public class TaskShoot : Node
 {
     Transform _prevTarget;
-    TestEnemy _enemy;
+    PlayerMovement _enemy;
     SentryTurrentBT _sentryBT;
 
     private float _attackDamage = 1f;
@@ -25,7 +25,7 @@ public class TaskShoot : Node
 
         if (target != _prevTarget)
         {
-            _enemy = target.GetComponent<TestEnemy>();
+            _enemy = target.GetComponent<PlayerMovement>();
             _prevTarget = target;
         }
 

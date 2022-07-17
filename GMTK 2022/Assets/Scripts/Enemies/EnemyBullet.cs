@@ -35,9 +35,9 @@ public class EnemyBullet : MonoBehaviour
         gameObject.SetActive(timeElapsed >= lifeSpan ? false : true);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.collider.CompareTag("Player"))
+        if (collision.GetComponent<Collider2D>().CompareTag("Player"))
         {
             collision.gameObject.GetComponent<PlayerMovement>().TakeDamage(attackDmg);
             gameObject.SetActive(false);

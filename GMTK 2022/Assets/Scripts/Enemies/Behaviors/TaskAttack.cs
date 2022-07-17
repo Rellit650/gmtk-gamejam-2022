@@ -24,7 +24,12 @@ public class TaskAttack : Node
     {
         Transform target = (Transform)GetData("target");
 
-       if(target != _prevTarget)
+        if(!target.CompareTag("Player"))
+        {
+            state = NodeState.FAILURE;
+            return state;
+        }
+        if (target != _prevTarget)
         {
             _enemy = target.GetComponent<PlayerMovement>();
             _prevTarget = target;

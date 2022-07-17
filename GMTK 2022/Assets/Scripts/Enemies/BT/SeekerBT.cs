@@ -30,5 +30,11 @@ public class SeekerBT : BT
         return root;
     }
 
-
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (collision.GetComponent<Collider2D>().CompareTag("Player"))
+    //    {
+    //        collision.gameObject.GetComponent<PlayerMovement>().TakeDamage(GetComponent<TestEnemy>().GetAttackDmg());
+    //    }
+    //}
 }

@@ -26,6 +26,7 @@ public class TaskEnemyInAttackRange : Node
         Transform target = (Transform)t;
         if(Vector3.Distance(_transform.position, target.position) <= _attackRange)
         {
+            Debug.Log("in range");
             state = NodeState.SUCCESS;
             return state;
         }

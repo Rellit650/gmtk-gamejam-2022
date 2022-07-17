@@ -3214,6 +3214,11 @@ PrefabInstance:
       objectReference: {fileID: 523477067}
     - target: {fileID: 4173056479179697129, guid: 04f434ec73bc21f4dbdcd961164c0a84,
         type: 3}
+      propertyPath: baseHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4173056479179697129, guid: 04f434ec73bc21f4dbdcd961164c0a84,
+        type: 3}
       propertyPath: swapSource
       value: 
       objectReference: {fileID: 254152399}
@@ -3256,6 +3261,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_UseFullKinematicContacts
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7684147638689330585, guid: 04f434ec73bc21f4dbdcd961164c0a84,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -6983,6 +6993,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Seeker (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7772555883953347398, guid: 8df632f76ae32d24a879d4800c531769,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7772555883953347452, guid: 8df632f76ae32d24a879d4800c531769,
         type: 3}
       propertyPath: m_RootOrder
@@ -8351,6 +8366,7 @@ GameObject:
   - component: {fileID: 1571242125}
   - component: {fileID: 1571242128}
   - component: {fileID: 1571242129}
+  - component: {fileID: 1571242130}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -8471,6 +8487,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1412325816}
   smoothness: 2.5
+--- !u!114 &1571242130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571242124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94187a588a1c19848af735809589ed7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1572951874
 PrefabInstance:
   m_ObjectHideFlags: 0
