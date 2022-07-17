@@ -24,7 +24,7 @@ public class SwordWeapon : BaseWeapon
 
         //animation time (0.35 max) = half attackspeed
 
-        animationTime = Mathf.Min(0.15f, (attackSpeed - attackSpeedFromPlayer) * 0.5f);
+        animationTime = Mathf.Min(0.15f, Mathf.Max(attackSpeed - attackSpeedFromPlayer,0.1f) * 0.5f);
 
         TrailRenderer[] trails = SwordSwingVFX.GetComponentsInChildren<TrailRenderer>();
         for (int i = 0; i < trails.Length; i++)
@@ -40,7 +40,7 @@ public class SwordWeapon : BaseWeapon
     private void OnValidate()
     {
         //GetComponentInChildren<SwordHitboxScript>(true).UpdateHitBoxValues(minRange, maxRange, damageValue);
-        animationTime = Mathf.Min(0.15f, (attackSpeed - attackSpeedFromPlayer) * 0.5f);
+        animationTime = Mathf.Min(0.15f, Mathf.Max(attackSpeed - attackSpeedFromPlayer, 0.1f) * 0.5f);
         TrailRenderer[] trails = SwordSwingVFX.GetComponentsInChildren<TrailRenderer>();
         for (int i = 0; i < trails.Length; i++)
         {
@@ -49,17 +49,26 @@ public class SwordWeapon : BaseWeapon
         WeaponColliderObject.GetComponent<HitboxScript>().UpdateHitBoxValues(damageValue);
     }
 
+    public void UpdateAnimation() 
+    {
+        animationTime = Mathf.Min(0.15f, Mathf.Max(attackSpeed - attackSpeedFromPlayer, 0.1f) * 0.5f);
 
+        TrailRenderer[] trails = SwordSwingVFX.GetComponentsInChildren<TrailRenderer>();
+        for (int i = 0; i < trails.Length; i++)
+        {
+            trails[i].time = animationTime;
+        }
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if (attackCDTimer <= (attackSpeed - attackSpeedFromPlayer)) 
+        if (attackCDTimer <= Mathf.Max((attackSpeed - attackSpeedFromPlayer), 0.1f)) 
         {
             attackCDTimer += Time.deltaTime;       
         }
 
-        if (attackCDTimer > (attackSpeed - attackSpeedFromPlayer))
+        if (attackCDTimer > Mathf.Max((attackSpeed - attackSpeedFromPlayer), 0.1f))
         {
             onCD = false;
             //Will need to remove this later 
@@ -108,11 +117,14 @@ public class SwordWeapon : BaseWeapon
     public override void StartPrimary()
     {
         //throw new System.NotImplementedException();
+        SwordSwingVFX.SetActive(true);
+        UpdateAnimation();
     }
 
     public override void EndPrimary()
     {
         //throw new System.NotImplementedException();
+        SwordSwingVFX.SetActive(false);
     }
 
     public override void UseSecondary()

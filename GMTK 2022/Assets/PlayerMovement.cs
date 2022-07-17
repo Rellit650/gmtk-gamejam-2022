@@ -201,11 +201,7 @@ public class PlayerMovement : MonoBehaviour
         if (!onSwapCD) 
         {
             onSwapCD = true;
-            //Debug.Log("SWITCHING WEAPON TO RANDOM WEAPON");
-            if (activeWeapons[weaponIndex].type == BaseWeapon.WeaponType.LaserBeam)
-            {
-                activeWeapons[weaponIndex].EndPrimary();
-            }
+            currentWeapon.EndPrimary();
             /* //Cycle Weapons
             weaponIndex++;
             if (weaponIndex > activeWeapons.Count - 1) 
@@ -213,17 +209,20 @@ public class PlayerMovement : MonoBehaviour
                 weaponIndex = 0;
             }
             */
+            //Cant get same Weapon
             int newWeapon = Random.Range(0, activeWeaponsCount);
             if (newWeapon == weaponIndex)
             {
                 newWeapon++;
                 if (newWeapon >= activeWeaponsCount)
                 {
+                    
                     newWeapon %= activeWeaponsCount;
                 }
             }
 
-            currentWeapon = activeWeapons[newWeapon];//[Mathf.FloorToInt(Random.Range(0, activeWeapons.Count) - 1)];
+            currentWeapon = activeWeapons[newWeapon];
+            weaponIndex = newWeapon;
             SetWeaponText();
             radialCooldown.color = Color.red;
         }     
