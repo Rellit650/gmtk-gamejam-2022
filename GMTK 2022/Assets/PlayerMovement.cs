@@ -196,6 +196,8 @@ public class PlayerMovement : MonoBehaviour
 
     void SwitchWeapon()
     {
+        int activeWeaponsCount = activeWeapons.Count;
+
         if (!onSwapCD) 
         {
             onSwapCD = true;
@@ -211,9 +213,17 @@ public class PlayerMovement : MonoBehaviour
                 weaponIndex = 0;
             }
             */
-            weaponIndex = Random.Range(0, activeWeapons.Count);
+            int newWeapon = Random.Range(0, activeWeaponsCount);
+            if (newWeapon == weaponIndex)
+            {
+                newWeapon++;
+                if (newWeapon >= activeWeaponsCount)
+                {
+                    newWeapon %= activeWeaponsCount;
+                }
+            }
 
-            currentWeapon = activeWeapons[weaponIndex];//[Mathf.FloorToInt(Random.Range(0, activeWeapons.Count) - 1)];
+            currentWeapon = activeWeapons[newWeapon];//[Mathf.FloorToInt(Random.Range(0, activeWeapons.Count) - 1)];
             SetWeaponText();
             radialCooldown.color = Color.red;
         }     
