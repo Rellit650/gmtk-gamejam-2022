@@ -17,7 +17,8 @@ public abstract class BaseWeapon : MonoBehaviour
         Sword = 0,
         LaserBeam,
         Shotgun,
-        Circle
+        Circle,
+        MinePlacer
     }
 
     public abstract void UsePrimary(float attackDamageBuff, float attackSpeedBuff);

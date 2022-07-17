@@ -16,15 +16,18 @@ public class LaserBeamWeapon : BaseWeapon
         playerRef = FindObjectOfType<PlayerMovement>().gameObject;
         beamCollider = GetComponentInChildren<BoxCollider2D>();
         beamVFX = GetComponentInChildren<LineRenderer>().gameObject;
+        beamVFX.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
+        /*
         if (firing) 
         {
             UsePrimary(0f,0f);
         }
+        */
 
         transform.position = playerRef.transform.position;
         transform.rotation = Quaternion.Euler(0f, 0f, playerRef.transform.rotation.eulerAngles.z);

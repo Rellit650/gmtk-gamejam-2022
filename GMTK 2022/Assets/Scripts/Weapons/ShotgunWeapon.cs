@@ -5,6 +5,7 @@ using UnityEngine;
 public class ShotgunWeapon : BaseWeapon
 {
     private bool onCD = false;
+    private bool released = true;
     public float inaccuracy;
     public float bulletSpeedUncertainty;
     public GameObject PlayerRef;
@@ -36,8 +37,9 @@ public class ShotgunWeapon : BaseWeapon
     public override void UsePrimary(float damageBuff, float ASBuff)
     {
         attackSpeedFromPlayer = ASBuff;
-        if (!onCD)
+        if (!onCD && released)
         {
+            released = false;
             onCD = true;
             attackCDTimer = 0f;
 
@@ -58,12 +60,14 @@ public class ShotgunWeapon : BaseWeapon
 
     public override void StartPrimary()
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
+        released = true;
     }
 
     public override void EndPrimary()
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
+        //released = true;
     }
 
     public override void UseSecondary()

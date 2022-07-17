@@ -2,18 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CircleShotWeapon : BaseWeapon
+public class MinePlacerWeapon : BaseWeapon
 {
     private bool onCD = false;
     private bool released = true;
-    public GameObject PlayerRef;
-    public GameObject bulletPrefab;
+    public GameObject playerRef;
+    public GameObject minePrefab;
     public int bulletAmount;
     // Start is called before the first frame update
     void Start()
     {
-        type = WeaponType.Circle;
-        //UsePrimary(0f,0f);
+        type = WeaponType.MinePlacer;
+        //UsePrimary(0f, 0f);
     }
 
     // Update is called once per frame
@@ -28,8 +28,9 @@ public class CircleShotWeapon : BaseWeapon
         {
             onCD = false;
             //Will need to remove this later 
-            //UsePrimary(0f,0f);
+            //UsePrimary(0f, 0f);
         }
+        transform.rotation = Quaternion.Euler(0f, 0f, playerRef.transform.rotation.eulerAngles.z);
     }
 
     public override void UsePrimary(float damageBuff, float ASBuff)
@@ -42,7 +43,7 @@ public class CircleShotWeapon : BaseWeapon
             attackCDTimer = 0f;
 
             for (int i = 0; i < bulletAmount; i++)
-            { 
+            {
                 float radians = 2 * Mathf.PI / bulletAmount * i;
 
                 /* Get the vector direction */
@@ -52,14 +53,14 @@ public class CircleShotWeapon : BaseWeapon
                 Vector3 spawnDir = new Vector3(horizontal, vertrical, 0);
 
                 /* Get the spawn position */
-                Vector3 spawnPos = PlayerRef.transform.position + spawnDir; // Radius is just the distance away from the point
+                Vector3 spawnPos = playerRef.transform.position + spawnDir; // Radius is just the distance away from the point          
 
                 /* Now spawn */
-                GameObject temp = Instantiate(bulletPrefab, spawnPos, Quaternion.LookRotation(spawnDir));
+                GameObject temp = Instantiate(minePrefab, spawnPos, Quaternion.LookRotation(spawnDir));
 
                 //GameObject temp = Instantiate(bulletPrefab, PlayerRef.transform.position, Quaternion.LookRotation(targetDir));
                 //temp.GetComponent<BulletScript>().speed += Random.Range(-bulletSpeedUncertainty, bulletSpeedUncertainty);
-                temp.GetComponent<BulletScript>().m_damage = damageValue;
+                temp.GetComponent<MineScript>().m_damage = damageValue;
             }
             //attackAnimationTimer = 0f;
         }
@@ -81,5 +82,3 @@ public class CircleShotWeapon : BaseWeapon
         //throw new System.NotImplementedException();
     }
 }
-
-

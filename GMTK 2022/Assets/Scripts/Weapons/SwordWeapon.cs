@@ -107,12 +107,12 @@ public class SwordWeapon : BaseWeapon
 
     public override void StartPrimary()
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
     }
 
     public override void EndPrimary()
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
     }
 
     public override void UseSecondary()
