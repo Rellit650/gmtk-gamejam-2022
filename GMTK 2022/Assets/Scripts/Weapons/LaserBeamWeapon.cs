@@ -17,6 +17,7 @@ public class LaserBeamWeapon : BaseWeapon
         beamCollider = GetComponentInChildren<BoxCollider2D>();
         beamVFX = GetComponentInChildren<LineRenderer>().gameObject;
         beamVFX.SetActive(false);
+        beamCollider.GetComponent<HitboxScript>().UpdateHitBoxValues(damageValue);
     }
 
     // Update is called once per frame
