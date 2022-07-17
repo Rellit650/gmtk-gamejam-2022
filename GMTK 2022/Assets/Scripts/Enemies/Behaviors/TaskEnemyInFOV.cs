@@ -37,7 +37,7 @@ public class TaskEnemyInFOV : Node
 
         //clear target, this is so if player gets outside view it'll reset
         parent.parent.ClearData("target");
-        state = NodeState.RUNNING;
+        state = NodeState.FAILURE;
         return state;
     }
 }

@@ -6,6 +6,7 @@ using BehaviorTree;
 public class SentryTurrentBT : BT
 {
     public float attRange = 10f;
+    public float fovRange = 15f;
     public float bulletSpd = 5f;
     public List<GameObject> bulletPool;
     public GameObject bulletPrefab;
@@ -31,6 +32,7 @@ public class SentryTurrentBT : BT
         {
             new Sequence(new List<Node>
             {
+                new TaskEnemyInFOV(transform,fovRange),
                 new TaskEnemyInAttackRange(transform,attRange),
                 new TaskShoot(transform,
                 GetComponent<TestEnemy>().GetAttacKSpd(),
@@ -45,9 +47,9 @@ public class SentryTurrentBT : BT
     {
         foreach(GameObject bullet in bulletPool)
         {
-            if(!bullet.activeSelf)
+            if(bullet.activeSelf == false)
             {
-
+                Debug.Log("BULLET RETURN");
                 return bullet;
             }
         }

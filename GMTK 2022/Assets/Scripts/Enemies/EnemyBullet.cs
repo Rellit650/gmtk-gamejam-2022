@@ -16,6 +16,10 @@ public class EnemyBullet : MonoBehaviour
     void Update()
     {
         timeElapsed += Time.deltaTime;
-        gameObject.SetActive(timeElapsed >= lifeSpan ? false : true);
+        if(timeElapsed > lifeSpan)
+        {
+            gameObject.SetActive(false);
+        }
+        ///gameObject.SetActive(timeElapsed >= lifeSpan ? false : true);
     }
 }
