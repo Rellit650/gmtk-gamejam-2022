@@ -33,4 +33,8 @@ public abstract class BaseEnemy : MonoBehaviour
         audioManager.PlayOneShot(TakeDamageSource, TakeDamageClip, TakeDamageVolume);
     }
 
+
+    public float GetHealth() { return currentHealth; }
+    public float GetAttacKSpd() { return attackSpeed; }
+    public float GetAttackDmg() { return attackDamage; }
 }

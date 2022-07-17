@@ -10,10 +10,9 @@ namespace BehaviorTree
     {
 
         private Node _root = null;
-        BT tree;
-        protected void Start()
+
+        protected virtual void Start()
         {
-            tree = this;
             _root = SetupTree();
         }
 

@@ -12,12 +12,12 @@ public class TaskPatrol : Node
     private float _waitTime = 1f; // in seconds
     private float _waitCounter = 0f;
     private bool _waiting = false;
-    [SerializeField]
-    float _speed;
-    public TaskPatrol(Transform transform, Transform[] waypoints)
+    private float _speed;
+    public TaskPatrol(Transform transform, Transform[] waypoints,float speed)
     {
         _transform = transform;
         _waypoints = waypoints;
+        _speed = speed;
     }
 
     public override NodeState Evaluate()
@@ -46,7 +46,7 @@ public class TaskPatrol : Node
                 _transform.position = Vector3.MoveTowards(
                     _transform.position,
                     wp.position,
-                    BackForthBT.speed * Time.deltaTime);
+                    _speed * Time.deltaTime);
                 _transform.LookAt(wp.position);
             }
         }
