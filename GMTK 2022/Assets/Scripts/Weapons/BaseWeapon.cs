@@ -4,12 +4,25 @@ using UnityEngine;
 
 public abstract class BaseWeapon : MonoBehaviour
 {
-    public float damageValue;
-    public float attackSpeed;
-    public float attackRange;
-    public float knockbackAmount;
-    public GameObject WeaponColliderObject;
+    [SerializeField] protected float damageValue;
+    [SerializeField] protected float attackSpeed;
+    [SerializeField] protected float attackCDTimer = 0f;
+    [SerializeField] protected float attackRange;
+    [SerializeField] protected float knockbackAmount; 
+    protected float attackSpeedFromPlayer = 0f;
+    public WeaponType type;
 
-    public abstract void UsePrimary();
+    public enum WeaponType 
+    {
+        Sword = 0,
+        LaserBeam,
+        Shotgun,
+        Circle,
+        MinePlacer
+    }
+
+    public abstract void UsePrimary(float attackDamageBuff, float attackSpeedBuff);
+    public abstract void StartPrimary();
+    public abstract void EndPrimary();
     public abstract void UseSecondary();
 }
