@@ -238,6 +238,9 @@ MonoBehaviour:
   defense: 5
   DamageNumberPrefab: {fileID: 5688829942934471788, guid: fec344fae1d09234da10efd660f952df,
     type: 3}
+  TakeDamageSource: {fileID: 0}
+  TakeDamageClip: {fileID: 8300000, guid: ac80657344e1e914ea175914fe257b94, type: 3}
+  TakeDamageVolume: 0.5
 --- !u!61 &2042673408030550034
 BoxCollider2D:
   m_ObjectHideFlags: 0
