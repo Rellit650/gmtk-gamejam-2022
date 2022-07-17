@@ -1505,6 +1505,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SwordWeapon
       objectReference: {fileID: 0}
+    - target: {fileID: 5332517300562481755, guid: 3a6265652826a704ba0c193e26071b2f,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a6265652826a704ba0c193e26071b2f, type: 3}
@@ -2840,6 +2845,11 @@ PrefabInstance:
       objectReference: {fileID: 1412325810}
     - target: {fileID: 6326858532177207538, guid: 6a90d94c0aff56a429e398a94b658a89,
         type: 3}
+      propertyPath: damageValue
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 6326858532177207538, guid: 6a90d94c0aff56a429e398a94b658a89,
+        type: 3}
       propertyPath: bulletAmount
       value: 2
       objectReference: {fileID: 0}
@@ -3126,6 +3136,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4173056479179697124, guid: 04f434ec73bc21f4dbdcd961164c0a84,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4173056479179697128, guid: 04f434ec73bc21f4dbdcd961164c0a84,
         type: 3}
@@ -8472,12 +8487,12 @@ PrefabInstance:
     - target: {fileID: 2370260799231812738, guid: a9e4c68f03564ab448db1c9f2b38ad29,
         type: 3}
       propertyPath: damageValue
-      value: 12
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2370260799231812738, guid: a9e4c68f03564ab448db1c9f2b38ad29,
         type: 3}
       propertyPath: bulletAmount
-      value: 7
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2370260799231812739, guid: a9e4c68f03564ab448db1c9f2b38ad29,
         type: 3}
@@ -9507,12 +9522,12 @@ PrefabInstance:
     - target: {fileID: 1540337169845454861, guid: 84513617c818df847aea567c3d29c393,
         type: 3}
       propertyPath: attackSpeed
-      value: 0.2
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 1540337169845454861, guid: 84513617c818df847aea567c3d29c393,
         type: 3}
       propertyPath: damageValue
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1540337169845454866, guid: 84513617c818df847aea567c3d29c393,
         type: 3}
@@ -10207,12 +10222,17 @@ PrefabInstance:
     - target: {fileID: 4647731243229426738, guid: 170bcd70ea93d6445926bb9547eff73d,
         type: 3}
       propertyPath: attackSpeed
-      value: 1.25
+      value: 0.85
       objectReference: {fileID: 0}
     - target: {fileID: 4647731243229426738, guid: 170bcd70ea93d6445926bb9547eff73d,
         type: 3}
       propertyPath: damageValue
-      value: 8
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4647731243229426738, guid: 170bcd70ea93d6445926bb9547eff73d,
+        type: 3}
+      propertyPath: bulletAmount
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4647731243229426739, guid: 170bcd70ea93d6445926bb9547eff73d,
         type: 3}
