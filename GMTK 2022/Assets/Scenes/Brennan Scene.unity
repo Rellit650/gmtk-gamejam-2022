@@ -368,10 +368,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0099fd9caa9c7c44ab5d2af85d7e4ffe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dashBar: {fileID: 0}
+  healthBar: {fileID: 0}
   baseMovementSpeed: 0
   dashCoolDown: 0
   dashSpeed: 0
   dashLength: 0
+  controller: 0
+  baseHealth: 0
 --- !u!65 &1419887696
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -462,8 +466,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaa1e545135f5974b8d20f0ede15b796, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  intro: {fileID: 8300000, guid: 475ef54c57e705e43859162dbae9b129, type: 3}
-  loop: {fileID: 8300000, guid: 475ef54c57e705e43859162dbae9b129, type: 3}
+  intro: {fileID: 8300000, guid: c0fea9f30a7b0384994eeb8da162cb9d, type: 3}
+  loop: {fileID: 8300000, guid: 9747cb61417187246bd7e477f10c9650, type: 3}
   source: {fileID: 139686593}
   shouldLoop: 1
 --- !u!1 &1824249605
