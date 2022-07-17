@@ -21,12 +21,9 @@ public class TaskMoveToTarget : Node
         {
             if (Vector3.Distance(_transform.position, target.position) > 0.01f)
             {
-                _transform.position = Vector3.MoveTowards(
-                    _transform.position,
-                    target.position,
-                    _speed * Time.deltaTime);
+             
                 Vector3 lookDir3D = target.transform.position - _transform.position;
-
+                _transform.Translate(lookDir3D.normalized * _speed * Time.deltaTime);
                 // normalize the vector: this makes the x and y components numerically
                 // equal to the sine and cosine of the angle:
                 lookDir3D.z = 0f;
